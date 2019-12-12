@@ -1,6 +1,6 @@
 {
   "name": "@goa/compose",
-  "version": "0.0.0-pre",
+  "version": "1.0.0",
   "description": "Compose a single middleware function for Goa out of many.",
   "main": "compile/index.js",
   "module": "src/index.js",

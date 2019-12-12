@@ -1,1 +1,1 @@
-{{ description }}
+Compose a single middleware function for Goa out of many.

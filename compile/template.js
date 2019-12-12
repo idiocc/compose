@@ -1,12 +1,12 @@
-const { _myNewPackage } = require('./mnp')
+const { _compose } = require('./compose')
 
 /**
- * @methodType {_myNewPackage.myNewPackage}
+ * @methodType {_compose.compose}
  */
-function myNewPackage(config) {
-  return _myNewPackage(config)
+function compose(config) {
+  return _compose(config)
 }
 
-module.exports = myNewPackage
+module.exports = compose
 
 /* typal types/index.xml namespace */

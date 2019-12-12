@@ -1,6 +1,6 @@
 import '../types/externs'
-import myNewPackage from './'
+import compose from './'
 
 module.exports = {
-  '_myNewPackage': myNewPackage,
+  '_compose': compose,
 }

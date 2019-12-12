@@ -1,11 +1,11 @@
-# my-new-package
+# @goa/compose
 
-%NPM: my-new-package%
+%NPM: @goa/compose%
 
-`my-new-package` is {{ description }}
+`@goa/compose` is Compose a single middleware function for Goa out of many.
 
 ```sh
-yarn add my-new-package
+yarn add @goa/compose
 ```
 
 ## Table Of Contents

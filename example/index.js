@@ -1,7 +1,7 @@
-import myNewPackage from '../src'
+import compose from '../src'
 
 (async () => {
-  const res = await myNewPackage({
+  const res = await compose({
     text: 'example',
   })
   console.log(res)

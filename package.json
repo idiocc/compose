@@ -9,7 +9,7 @@
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "compile": "depack src/bin/compose -o compile/bin/compose.js -a -c -S --externs types/externs.js",
+    "compile": "depack src/bin/compose -o compile/bin/compose.js -a -c -S",
     "lib": "depack src/depack.js -o compile/compose.js -a -c --source_map_include_content",
     "test-compile": "ALAMODE_ENV=test-compile yarn test",
     "lint": "eslint .",
@@ -22,10 +22,8 @@
   },
   "files": [
     "src",
-    "compile",
-    "types/externs.js"
+    "compile"
   ],
-  "externs": "types/externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/idiocc/compose.git"
@@ -43,11 +41,13 @@
   },
   "homepage": "https://www.idio.cc",
   "devDependencies": {
+    "@goa/koa": "^1.1.5",
     "alamode": "^3.2.0",
     "depack": "^1.0.1",
     "documentary": "^1.34.1",
     "erte": "^1.2.0",
     "eslint-config-artdeco": "1.0.1",
+    "rqt": "^4.0.0",
     "yarn-s": "1.2.1",
     "zoroaster": "^4.1.2"
   }

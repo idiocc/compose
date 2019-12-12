@@ -1,8 +1,8 @@
-'use strict';/*
- diff package https://github.com/kpdecker/jsdiff
- BSD License
- Copyright (c) 2009-2015, Kevin Decker <kpdecker@gmail.com>
+/*
+ MIT
+ (c) dead-horse
+ https://npmjs.org/koa-compose
 */
-const c={black:30,red:31,green:32,yellow:33,blue:34,magenta:35,cyan:36,white:37,grey:90};module.exports={_compose:async function(a={}){const {shouldRun:d=!0,text:b=""}=a;if(d)return a=(a=c.yellow)?`\x1b[${a}m${b}\x1b[0m`:b,console.log("@goa/compose called with %s",a),b}};
+'use strict';module.exports={_compose:function(b){if(!Array.isArray(b))throw new TypeError("Middleware stack must be an array!");for(const c of b)if("function"!=typeof c)throw new TypeError("Middleware must be composed of functions!");return(c,g)=>{function e(a){if(a<=f)return Promise.reject(Error("next() called multiple times"));f=a;let d=b[a];a==b.length&&(d=g);if(!d)return Promise.resolve();try{return Promise.resolve(d(c,e.bind(null,a+1)))}catch(h){return Promise.reject(h)}}let f=-1;return e(0)}}};
 
 //# sourceMappingURL=compose.js.map

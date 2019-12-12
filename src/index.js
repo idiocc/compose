@@ -1,21 +1,37 @@
-import { c } from 'erte'
-
 /**
- * Compose a single middleware function for Goa out of many.
- * @param {!_compose.Config} [config] Options for the program.
- * @param {boolean} [config.shouldRun=true] A boolean option. Default `true`.
- * @param {string} [config.text] A text to return.
+ * Compose `middleware` returning a fully valid middleware comprised of all those which are passed.
+ * @param {!Array<!Function>} middleware
  */
-export default async function compose(config = {}) {
-  const {
-    shouldRun = true,
-    text = '',
-  } = config
-  if (!shouldRun) return
-  console.log('@goa/compose called with %s', c(text, 'yellow'))
-  return text
+export default function compose(middleware) {
+  if (!Array.isArray(middleware))
+    throw new TypeError('Middleware stack must be an array!')
+  for (const fn of middleware) {
+    if (typeof fn != 'function')
+      throw new TypeError('Middleware must be composed of functions!')
+  }
+
+  return (context, next) => {
+    // last called middleware #
+    let index = -1
+    return dispatch(0)
+
+    function dispatch(i) {
+      if (i <= index) return Promise.reject(new Error('next() called multiple times'))
+      index = i
+      let fn = middleware[i]
+      if (i == middleware.length) fn = next
+      if (!fn) return Promise.resolve()
+      try {
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+  }
 }
 
 /**
- * @typedef {import('..').Config} _compose.Config
+ * @license MIT
+ * (c) dead-horse
+ * https://npmjs.org/koa-compose
  */

@@ -10,8 +10,6 @@ import compose from '@goa/compose'
 
 <typedef method="compose">types/api.xml</typedef>
 
-<typedef>types/index.xml</typedef>
-
 %EXAMPLE: example, ../src => @goa/compose%
 %FORK example%
 

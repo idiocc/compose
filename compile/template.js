@@ -3,10 +3,8 @@ const { _compose } = require('./compose')
 /**
  * @methodType {_compose.compose}
  */
-function compose(config) {
-  return _compose(config)
+function compose(middleware) {
+  return _compose(middleware)
 }
 
 module.exports = compose
-
-/* typal types/index.xml namespace */

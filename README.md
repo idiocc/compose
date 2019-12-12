@@ -1,6 +1,6 @@
 # @goa/compose
 
-[![npm version](https://badge.fury.io/js/@goa/compose.svg)](https://www.npmjs.com/package/@goa/compose)
+[![npm version](https://badge.fury.io/js/%40goa%2Fcompose.svg)](https://www.npmjs.com/package/@goa/compose)
 
 `@goa/compose` is Compose a single middleware function for Goa out of many.
 
@@ -12,9 +12,7 @@ yarn add @goa/compose
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`async compose(config: !Config): string`](#async-mynewpackageconfig-config-string)
-  * [`Config`](#type-config)
-- [CLI](#cli)
+- [`compose(middleware: !Array<!Function>): !Function`](#composemiddleware-arrayfunction-function)
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
@@ -33,32 +31,39 @@ import compose from '@goa/compose'
   <img src="/.documentary/section-breaks/1.svg?sanitize=true">
 </a></p>
 
-## <code>async <ins>compose</ins>(</code><sub><br/>&nbsp;&nbsp;`config: !Config,`<br/></sub><code>): <i>string</i></code>
+## <code><ins>compose</ins>(</code><sub><br/>&nbsp;&nbsp;`middleware: !Array<!Function>,`<br/></sub><code>): <i>!Function</i></code>
 Compose a single middleware function for Goa out of many.
 
- - <kbd><strong>config*</strong></kbd> <em><code><a href="#type-config" title="Options for the program.">!Config</a></code></em>: The config.
-
-__<a name="type-config">`Config`</a>__: Options for the program.
-
-
-|   Name    |       Type       |    Description    | Default |
-| --------- | ---------------- | ----------------- | ------- |
-| shouldRun | <em>boolean</em> | A boolean option. | `true`  |
-| text      | <em>string</em>  | A text to return. | -       |
+ - <kbd><strong>middleware*</strong></kbd> <em><code>!Array&lt;!Function&gt;</code></em>: The array with the middleware.
 
 ```js
+import Goa from '@goa/koa'
+import rqt from 'rqt'
 import compose from '@goa/compose'
 
-(async () => {
-  const res = await compose({
-    text: 'example',
-  })
+const goa = new Goa()
+
+const composed = compose([
+  async (ctx, next) => {
+    ctx.body = 'hello'
+    await next()
+  },
+  async (ctx) => {
+    ctx.body += ' world'
+  },
+])
+
+goa.use(composed)
+
+goa.listen(async function() {
+  const url = `http://127.0.0.1:${this.address().port}`
+  const res = await rqt(url)
   console.log(res)
-})()
+  this.close()
+})
 ```
 ```
-@goa/compose called with example
-example
+hello world
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -68,6 +73,8 @@ example
 ## Copyright & License
 
 GNU Affero General Public License v3.0
+
+[Original work](https://www.npmjs.com/package/koa-compose) by dead-horse under MIT license. Copy of the license is not included as not found in the original package.
 
 <table>
   <tr>

@@ -1,6 +1,6 @@
 <types namespace="_compose">
-  <method name="compose" async return="string">
-    <arg type="!_compose.Config" name="config">The config.</arg>
+  <method name="compose" return="!Function">
+    <arg type="!Array<!Function>" name="middleware">The array with the middleware.</arg>
     Compose a single middleware function for Goa out of many.
   </method>
 </types>
